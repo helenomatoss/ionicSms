@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "IonicOTP",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
