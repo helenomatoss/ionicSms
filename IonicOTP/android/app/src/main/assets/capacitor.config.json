@@ -1,5 +1,5 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "io.ionic.OTP",
 	"appName": "IonicOTP",
 	"webDir": "www",
 	"bundledWebRuntime": false
