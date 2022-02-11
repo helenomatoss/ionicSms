@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { NavController, ToastController } from '@ionic/angular';
+import { SMS } from '@awesome-cordova-plugins/sms/ngx';
+
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +10,29 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  phoneNumber: number;
+  textMessage: string;
+
+  constructor(private sms: SMS, private toast: ToastController, public navCtrl: NavController) {
+
+  }
+  async sendTextMessage(){
+    try{
+      await this.sms.send(String(this.phoneNumber),this.textMessage);
+      const toast = this.toast.create({
+        message: 'Text was sent',
+        duration: 3000
+      });
+      (await toast).present();
+
+    }
+    catch(e){
+      const toast = this.toast.create({
+        message: 'Text was not send',
+        duration: 3000
+      });
+      (await toast).present();
+    }
+  }
 
 }

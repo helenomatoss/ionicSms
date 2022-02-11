@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Enviar SMS
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,6 +12,27 @@
       <ion-title size="large">Tab 2</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-card>
+
+    <ion-item>
+      <ion-label stacked>Phone number > </ion-label>
+      <ion-input [(ngModel)]="phoneNumber" type="tel"></ion-input>
+   </ion-item>
+
+   <ion-item>
+      <ion-label stacked>Message > </ion-label>
+      <ion-input [(ngModel)]="Message" type="text"></ion-input>
+   </ion-item>
+
+   <ion-item>
+    <button ion-button icon-left clear item-right (click)="sendTextMessage()">
+    <ion-icon name="checkmark"></ion-icon>
+    send
+  </button>
+ </ion-item>
+
+  </ion-card>
 
   
 </ion-content>
