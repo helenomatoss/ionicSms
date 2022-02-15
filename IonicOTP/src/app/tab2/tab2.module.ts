@@ -1,3 +1,4 @@
+import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,6 +16,6 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
     Tab2PageRoutingModule
   ],
   declarations: [Tab2Page],
-  providers:[SMS]
+  providers:[SMS,AndroidPermissions]
 })
 export class Tab2PageModule {}
