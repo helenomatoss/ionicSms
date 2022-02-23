@@ -26,13 +26,29 @@
    </ion-item>
 
    <ion-item>
-    <button ion-button icon-left clear item-right (click)="sendTextMessage()">
+    <ion-button icon-left clear item-right (click)="sendTextMessage()">
     <ion-icon name="checkmark"></ion-icon>
     send
-  </button>
+  </ion-button>
  </ion-item>
 
   </ion-card>
+  
+    <ion-button color="primary" (click)="showAlert()">
+    <ion-icon name="alert"></ion-icon>
+    alerta
+  </ion-button>
+ 
+
+ <div id="container">
+   <ion-button color="success" (click)="showModal()">check</ion-button>
+ </div>
+ <div id="container">
+  <ion-button color="warning" (click)="showModal2()">alerta</ion-button>
+</div>
+<div id="container">
+  <ion-button color="danger" (click)="showModal3()">erro</ion-button>
+</div>
 
   
 </ion-content>
