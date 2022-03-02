@@ -67,8 +67,8 @@ export class Tab2Page {
   async showAlert() {
     const myAlert = await this.alerCtrl.create({
       header: '! Alerta !',
-      subHeader: '',
-      message: 'você está agredindo a moda',
+      subHeader: 'Mensagem não enviada',
+      message: 'VOcê pode estar sem credito',
 
       buttons: ['OK', 'CANCELAR']
     });
@@ -80,7 +80,9 @@ export class Tab2Page {
     console.log('showModal()');
     const modal = await this.modalCtrl.create({
       component: ModalPage,
-      cssClass: 'my-custom-modal1'
+      cssClass: 'my-custom-modal1',
+      componentProps:{
+      }
     });
     await modal.present();
   }

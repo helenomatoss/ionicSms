@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ModalPage implements OnInit {
 
+  @Input() name: String;
 
   constructor(private modalCtrl: ModalController) { }
 
