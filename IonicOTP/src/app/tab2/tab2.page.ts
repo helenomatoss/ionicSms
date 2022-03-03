@@ -31,49 +31,7 @@ export class Tab2Page {
 
   }
   async sendTextMessage() {
-    try {
-
-      this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.SEND_SMS).then(
-        result => console.log('Has permission?', result.hasPermission),
-        () => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.SEND_SMS)
-      );
-
-      this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.SEND_SMS]);
-
-      await this.sms.send(String(this.phoneNumber), this.textMessage).then(result =>{
-        console.log('resultado do envio: ',result);
-        
-        if(result){
-          this.showModal();
-        }
-      }).catch(() =>{
-        this.showModal2();
-      });
-
-    }
-    catch (e) {
-       await this.showModal3();
-    }
-  }
-
-  sendTxt() {
-    
-    this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.SEND_SMS).then(() => {
-      //colocar metodo de envio
-    }).catch((err) => {
-      alert(JSON.stringify(err));
-    });
-  };
-  async showAlert() {
-    const myAlert = await this.alerCtrl.create({
-      header: '! Alerta !',
-      subHeader: 'Mensagem não enviada',
-      message: 'VOcê pode estar sem credito',
-
-      buttons: ['OK', 'CANCELAR']
-    });
-
-    myAlert.present();
+      await this.checkPermission();
   }
 
   async showModal() {
@@ -108,6 +66,40 @@ export class Tab2Page {
       duration: 3000
     });
     (await toast).present();
+  }
+
+  async checkPermission(){
+
+      this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.SEND_SMS).then(
+        result =>{
+          console.log('Has permission?', result.hasPermission)
+          if(result.hasPermission){
+            this.sendSms();
+            return;
+          }else{
+            this.showModal3()
+            return;
+          }
+        },
+        () => this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.SEND_SMS)
+      );
+     this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.SEND_SMS]);  
+    }
+    
+  async sendSms(){
+
+    await this.sms.send(String(this.phoneNumber), this.textMessage).then(result =>{
+      console.log('resultado do envio: ',result);
+      
+      if(result){
+        this.showModal();
+      }
+    }).catch(() =>{
+      this.showModal2();
+    });
+
+  
+
   }
 
 
