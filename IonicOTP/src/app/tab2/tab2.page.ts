@@ -101,6 +101,7 @@ export class Tab2Page implements OnInit{
 
   async sendSms() {
 
+    this.textMessage = `Seu token de segurança é: ${this.randomToken()}`;
     await this.sms.send(String(this.phoneNumber), this.textMessage).then(result => {
       console.log('resultado do envio: ', result);
 
@@ -115,8 +116,7 @@ export class Tab2Page implements OnInit{
 
   randomToken(){
 
-    let randomNumber = Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
-    console.log('Seu TOken é: ',randomNumber);
+    return Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
 
   }
 }
