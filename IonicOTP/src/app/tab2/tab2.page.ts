@@ -13,8 +13,9 @@ import {
 import { Modal2Page } from '../modal2/modal2.page';
 import { Modal3Page } from '../modal3/modal3.page';
 import { Storage } from '@capacitor/storage';
+import * as moment from 'moment';
 
-class TokenModal{
+class TokenModal {
 
   token: String;
   dataExpiracao: String;
@@ -26,7 +27,7 @@ class TokenModal{
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page implements OnInit{
+export class Tab2Page implements OnInit {
 
   phoneNumber: number;
   textMessage: string;
@@ -41,23 +42,23 @@ export class Tab2Page implements OnInit{
   }
 
   ngOnInit(): void {
-    
+
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.setName();
     this.checkName();
-    
+
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.removeName();
   }
 
   async sendTextMessage() {
     await this.checkPermission();
   }
-  
+
 
   async showModal() {
     console.log('showModal()');
@@ -127,32 +128,42 @@ export class Tab2Page implements OnInit{
       this.showModal2();
     });
   }
-  
-  randomToken(){
+
+  randomToken() {
 
     return Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
 
   }
 
-  async setName(){
+  async setName() {
 
     let tokenModal = new TokenModal();
     tokenModal.token = this.randomToken().toString();
-    // tokenModal.dataExpiracao = 
+    tokenModal.dataExpiracao = this.formatDateExp();
+    let valorJson = JSON.stringify(tokenModal);
     await Storage.set({
       key: 'Token',
-      value: '{"token":"873912","data-expiracao":"23/03/2500 11:35:00"}',
+      value: valorJson,
     });
   };
-  
-  async checkName(){
+
+  async checkName() {
     const { value } = await Storage.get({ key: 'Token' });
-  
+
     console.log(`${value}`);
   };
-  
-  async removeName(){
+
+  async removeName() {
     await Storage.remove({ key: 'Token' });
   };
-}
 
+
+  formatDateExp() {
+    const MINUTOS = '120';
+    let dataInicial = new Date();
+    return moment(dataInicial, 'HH:mm:ss').add(MINUTOS, 'minutes').format('DD-MM-YYYY HH:mm');
+  }
+
+  
+
+}
