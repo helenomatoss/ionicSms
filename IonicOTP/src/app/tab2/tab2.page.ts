@@ -12,6 +12,14 @@ import {
 } from '@awesome-cordova-plugins/android-permissions/ngx';
 import { Modal2Page } from '../modal2/modal2.page';
 import { Modal3Page } from '../modal3/modal3.page';
+import { Storage } from '@capacitor/storage';
+
+class TokenModal{
+
+  token: String;
+  dataExpiracao: String;
+
+}
 
 @Component({
   selector: 'app-tab2',
@@ -33,10 +41,17 @@ export class Tab2Page implements OnInit{
   }
 
   ngOnInit(): void {
+    
+  }
+
+  ionViewWillEnter(){
+    this.setName();
+    this.checkName();
+    
   }
 
   ionViewWillLeave(){
-    this.randomToken();
+    this.removeName();
   }
 
   async sendTextMessage() {
@@ -113,11 +128,31 @@ export class Tab2Page implements OnInit{
     });
   }
   
-
   randomToken(){
 
     return Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
 
   }
+
+  async setName(){
+
+    let tokenModal = new TokenModal();
+    tokenModal.token = this.randomToken().toString();
+    // tokenModal.dataExpiracao = 
+    await Storage.set({
+      key: 'Token',
+      value: '{"token":"873912","data-expiracao":"23/03/2500 11:35:00"}',
+    });
+  };
+  
+  async checkName(){
+    const { value } = await Storage.get({ key: 'Token' });
+  
+    console.log(`${value}`);
+  };
+  
+  async removeName(){
+    await Storage.remove({ key: 'Token' });
+  };
 }
 
