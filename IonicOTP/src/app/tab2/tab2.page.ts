@@ -31,6 +31,8 @@ export class Tab2Page implements OnInit {
 
   phoneNumber: number;
   textMessage: string;
+  conferirToken: string;
+  numberToken: number;
 
   constructor(private sms: SMS, private toast: ToastController,
     private androidPermissions: AndroidPermissions,
@@ -46,13 +48,13 @@ export class Tab2Page implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.setName();
-    this.checkName();
+    // this.setName();
+    // this.checkName();
 
   }
 
   ionViewWillLeave() {
-    this.removeName();
+    // this.removeName();
   }
 
   async sendTextMessage() {
@@ -117,12 +119,14 @@ export class Tab2Page implements OnInit {
 
   async sendSms() {
 
-    this.textMessage = `Seu token de segurança é: ${this.randomToken()}`;
+    this.numberToken = this.randomToken();
+    this.textMessage = `Seu token de segurança é: ${this.numberToken}`;
     await this.sms.send(String(this.phoneNumber), this.textMessage).then(result => {
       console.log('resultado do envio: ', result);
 
       if (result) {
         this.showModal();
+        this.setName(this.numberToken);
       }
     }).catch(() => {
       this.showModal2();
@@ -135,22 +139,51 @@ export class Tab2Page implements OnInit {
 
   }
 
-  async setName() {
+  async setName(numeroToken: number) {
 
     let tokenModal = new TokenModal();
-    tokenModal.token = this.randomToken().toString();
+    tokenModal.token = numeroToken.toString();
     tokenModal.dataExpiracao = this.formatDateExp();
     let valorJson = JSON.stringify(tokenModal);
     await Storage.set({
       key: 'Token',
       value: valorJson,
     });
+    
+  
+    
   };
 
-  async checkName() {
-    const { value } = await Storage.get({ key: 'Token' });
+  validacao(){
 
-    console.log(`${value}`);
+    this.checkName().then(result => {
+
+      let validacao = result;
+    console.log(validacao.token)
+
+    let dataHoraAtual = moment(new Date()).format('DD-MM-YYYY HH:mm').toString();
+  //  console.log("console1",dataHoraAtual);
+  //  console.log("console2",validacao.dataExpiracao);
+
+    if(validacao.token == this.conferirToken && validacao.dataExpiracao >= dataHoraAtual){
+      console.log("ta certinho");
+      this.removeName();
+
+    }else{
+      console.log("foi n, tenta dnv");
+    }
+
+    })
+    
+
+  }
+
+  async checkName() {
+
+    const { value } = await Storage.get({ key: 'Token' });
+    let tokenModal: TokenModal = JSON.parse(value);
+    console.log(`${tokenModal.token}`);
+    return tokenModal;
   };
 
   async removeName() {
@@ -164,6 +197,7 @@ export class Tab2Page implements OnInit {
     return moment(dataInicial, 'HH:mm:ss').add(MINUTOS, 'minutes').format('DD-MM-YYYY HH:mm');
   }
 
+  
   
 
 }

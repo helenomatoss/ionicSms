@@ -33,6 +33,22 @@
  </ion-item>
 
   </ion-card>
+
+  <ion-card>
+
+    <ion-item>
+      <ion-label stacked>Token > </ion-label>
+      <ion-input [(ngModel)]="conferirToken" type="text"></ion-input>
+   </ion-item>
+
+   <ion-item>
+    <ion-button icon-left clear item-right (click)="validacao()">
+    <ion-icon name="checkmark"></ion-icon>
+    validar token
+  </ion-button>
+ </ion-item>
+
+  </ion-card>
   
     <ion-button color="primary" (click)="showAlert()">
     <ion-icon name="alert"></ion-icon>
