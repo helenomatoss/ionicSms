@@ -16,6 +16,14 @@ const routes: Routes = [
   {
     path: 'modal3',
     loadChildren: () => import('./modal3/modal3.module').then( m => m.Modal3PageModule)
+  },
+  {
+    path: 'modal4',
+    loadChildren: () => import('./modal4/modal4.module').then( m => m.Modal4PageModule)
+  },
+  {
+    path: 'modal5',
+    loadChildren: () => import('./modal5/modal5.module').then( m => m.Modal5PageModule)
   }
 
 ];
