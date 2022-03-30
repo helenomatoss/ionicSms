@@ -16,6 +16,7 @@ import { Modal4Page } from '../modal4/modal4.page';
 import { Modal5Page } from '../modal5/modal5.page';
 import { Storage } from '@capacitor/storage';
 import * as moment from 'moment';
+import { StatusCodeEnum } from '../enum/status-code-enum';
 
 class TokenModal {
 
@@ -64,12 +65,14 @@ export class Tab2Page implements OnInit {
   }
 
 
-  async showModal() {
+  async showModal(message: string, statusCode: number) {
     console.log('showModal()');
     const modal = await this.modalCtrl.create({
       component: ModalPage,
       cssClass: 'my-custom-modal1',
       componentProps: {
+        message,
+        statusCode,
       }
     });
     await modal.present();
@@ -143,7 +146,7 @@ export class Tab2Page implements OnInit {
       console.log('resultado do envio: ', result);
 
       if (result) {
-        this.showModal();
+        this.showModal("deu certo", StatusCodeEnum.SUCESSO);
         this.setName(this.numberToken);
       }
     }).catch(() => {
