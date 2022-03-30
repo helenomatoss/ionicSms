@@ -127,7 +127,7 @@ export class Tab2Page implements OnInit {
             this.sendSms();
             return;
           } else {
-            this.showModal3()
+            this.showModal("Mensagem não enviada, verifique as permissões do aplicativo", StatusCodeEnum.ERRO)
             return;
           }
         },
@@ -146,11 +146,11 @@ export class Tab2Page implements OnInit {
       console.log('resultado do envio: ', result);
 
       if (result) {
-        this.showModal("deu certo", StatusCodeEnum.SUCESSO);
+        this.showModal("Token Enviado com sucesso", StatusCodeEnum.SUCESSO);
         this.setName(this.numberToken);
       }
     }).catch(() => {
-      this.showModal2();
+      this.showModal("Token não enviada, verifique se seu dispositivo contem um chip", StatusCodeEnum.ATENCAO);
     });
   }
 
@@ -187,13 +187,11 @@ export class Tab2Page implements OnInit {
   //  console.log("console2",validacao.dataExpiracao);
 
     if(validacao.token == this.conferirToken && validacao.dataExpiracao >= dataHoraAtual){
-      console.log("token correto");
-      this.showModal4();
+      this.showModal("Token correto!!!!", StatusCodeEnum.SUCESSO);
       this.removeName();
 
     }else{
-      console.log("token incorreto ou invalido");
-      this.showModal5();
+      this.showModal("token incorreto ou invalido", StatusCodeEnum.ERRO);
     }
 
     })
