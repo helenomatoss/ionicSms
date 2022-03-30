@@ -10,10 +10,6 @@ import { SMS } from '@awesome-cordova-plugins/sms/ngx';
 import {
   AndroidPermissions
 } from '@awesome-cordova-plugins/android-permissions/ngx';
-import { Modal2Page } from '../modal2/modal2.page';
-import { Modal3Page } from '../modal3/modal3.page';
-import { Modal4Page } from '../modal4/modal4.page';
-import { Modal5Page } from '../modal5/modal5.page';
 import { Storage } from '@capacitor/storage';
 import * as moment from 'moment';
 import { StatusCodeEnum } from '../enum/status-code-enum';
@@ -74,38 +70,6 @@ export class Tab2Page implements OnInit {
         message,
         statusCode,
       }
-    });
-    await modal.present();
-  }
-  async showModal2() {
-    console.log('showModal2()');
-    const modal = await this.modalCtrl.create({
-      component: Modal2Page,
-      cssClass: 'my-custom-modal1'
-    });
-    await modal.present();
-  }
-  async showModal3() {
-    console.log('showModal3()');
-    const modal = await this.modalCtrl.create({
-      component: Modal3Page,
-      cssClass: 'my-custom-modal1'
-    });
-    await modal.present();
-  }
-  async showModal4() {
-    console.log('showModal4()');
-    const modal = await this.modalCtrl.create({
-      component: Modal4Page,
-      cssClass: 'my-custom-modal1'
-    });
-    await modal.present();
-  }
-  async showModal5() {
-    console.log('showModal5()');
-    const modal = await this.modalCtrl.create({
-      component: Modal5Page,
-      cssClass: 'my-custom-modal1'
     });
     await modal.present();
   }
