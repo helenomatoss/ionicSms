@@ -53,7 +53,6 @@ export class Tab2Page implements OnInit {
 
 
   async showModal(message: string, statusCode: number) {
-    console.log('showModal()');
     const modal = await this.modalCtrl.create({
       component: ModalPage,
       cssClass: 'my-custom-modal1',
@@ -77,7 +76,6 @@ export class Tab2Page implements OnInit {
     this.androidPermissions.checkPermission(
       this.androidPermissions.PERMISSION.SEND_SMS).then(
         result => {
-          console.log('Has permission?', result.hasPermission)
           if (result.hasPermission) {
             this.sendSms();
             return;
@@ -98,7 +96,6 @@ export class Tab2Page implements OnInit {
     this.numberToken = this.randomToken();
     this.textMessage = `Seu token de segurança é: ${this.numberToken}`;
     await this.sms.send(String(this.phoneNumber), this.textMessage).then(result => {
-      console.log('resultado do envio: ', result);
 
       if (result) {
         this.showModal("Token Enviado com sucesso", StatusCodeEnum.SUCESSO);
@@ -135,13 +132,13 @@ export class Tab2Page implements OnInit {
     this.checkName().then(result => {
 
       let validacao = result;
-    console.log(validacao.token)
 
     let dataHoraAtual = moment(new Date()).format('DD-MM-YYYY HH:mm').toString();
 
     if(validacao.token == this.conferirToken && validacao.dataExpiracao >= dataHoraAtual){
       this.showModal("Token correto!!!!", StatusCodeEnum.SUCESSO);
       this.removeName();
+      this.resetInput();
 
     }else{
       this.showModal("token incorreto ou invalido", StatusCodeEnum.ERRO);
@@ -156,7 +153,6 @@ export class Tab2Page implements OnInit {
 
     const { value } = await Storage.get({ key: 'Token' });
     let tokenModal: TokenModal = JSON.parse(value);
-    console.log(`${tokenModal.token}`);
     return tokenModal;
   };
 
@@ -169,6 +165,12 @@ export class Tab2Page implements OnInit {
     const MINUTOS = '120';
     let dataInicial = new Date();
     return moment(dataInicial, 'HH:mm:ss').add(MINUTOS, 'minutes').format('DD-MM-YYYY HH:mm');
+  }
+
+  resetInput(){
+    this.phoneNumber = null;
+    this.conferirToken = '';
+  
   }
 
   
