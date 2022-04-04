@@ -46,15 +46,6 @@ export class Tab2Page implements OnInit {
 
   }
 
-  ionViewWillEnter() {
-    // this.setName();
-    // this.checkName();
-
-  }
-
-  ionViewWillLeave() {
-    // this.removeName();
-  }
 
   async sendTextMessage() {
     await this.checkPermission();
@@ -147,9 +138,7 @@ export class Tab2Page implements OnInit {
     console.log(validacao.token)
 
     let dataHoraAtual = moment(new Date()).format('DD-MM-YYYY HH:mm').toString();
-  //  console.log("console1",dataHoraAtual);
-  //  console.log("console2",validacao.dataExpiracao);
-
+    
     if(validacao.token == this.conferirToken && validacao.dataExpiracao >= dataHoraAtual){
       this.showModal("Token correto!!!!", StatusCodeEnum.SUCESSO);
       this.removeName();
