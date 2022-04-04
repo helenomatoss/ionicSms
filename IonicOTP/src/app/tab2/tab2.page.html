@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title item-text-center > Reset de senha </ion-title>
+    <ion-title item-text-center > token SMS</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,14 +14,14 @@
   <ion-card>
 
     <ion-item>
-      <ion-label stacked>Phone number > </ion-label>
+      <ion-label stacked>Numero de telefone > </ion-label>
       <ion-input [(ngModel)]="phoneNumber" type="tel"></ion-input>
    </ion-item>
 
    <ion-item>
     <ion-button icon-left clear item-right (click)="sendTextMessage()">
     <ion-icon name="checkmark"></ion-icon>
-    send
+    Enviar
   </ion-button>
  </ion-item>
 

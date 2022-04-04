@@ -105,7 +105,7 @@ export class Tab2Page implements OnInit {
         this.setName(this.numberToken);
       }
     }).catch(() => {
-      this.showModal("Token não enviada, verifique se seu dispositivo contem um chip", StatusCodeEnum.ATENCAO);
+      this.showModal("Token não enviado, verifique se seu dispositivo contem um chip", StatusCodeEnum.ATENCAO);
     });
   }
 
@@ -138,7 +138,7 @@ export class Tab2Page implements OnInit {
     console.log(validacao.token)
 
     let dataHoraAtual = moment(new Date()).format('DD-MM-YYYY HH:mm').toString();
-    
+
     if(validacao.token == this.conferirToken && validacao.dataExpiracao >= dataHoraAtual){
       this.showModal("Token correto!!!!", StatusCodeEnum.SUCESSO);
       this.removeName();
