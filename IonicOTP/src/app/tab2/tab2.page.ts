@@ -46,6 +46,10 @@ export class Tab2Page implements OnInit {
 
   }
 
+  ionViewWillEnter(){
+    this.resetInput();
+  }
+
 
   async sendTextMessage() {
     await this.checkPermission();
@@ -141,6 +145,7 @@ export class Tab2Page implements OnInit {
       this.resetInput();
 
     }else{
+      this.conferirToken = '';
       this.showModal("token incorreto ou invalido", StatusCodeEnum.ERRO);
     }
 
